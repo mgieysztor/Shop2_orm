@@ -24,7 +24,7 @@
         android:layout_below="@+id/input_product_name_layout">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/input_password"
+            android:id="@+id/product_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Cena" />
@@ -46,8 +46,9 @@
         android:id="@+id/button_add_product"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:text="Dodaj produkt" />
+        android:text="Dodaj produkt"
+        android:layout_below="@+id/product_available"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

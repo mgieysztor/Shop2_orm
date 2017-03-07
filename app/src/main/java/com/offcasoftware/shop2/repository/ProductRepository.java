@@ -58,6 +58,7 @@ public class ProductRepository implements ProductRepositoryInterface {
 
     @Override
     public Product getProduct(final int productId) {
-        return mProducts.get(productId);
+
+        return mDatabase.getProduct(productId);
     }
 }

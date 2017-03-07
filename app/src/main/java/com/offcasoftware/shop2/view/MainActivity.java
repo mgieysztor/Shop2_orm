@@ -8,6 +8,7 @@ import com.offcasoftware.shop2.view.widget.ProductCardView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -20,9 +21,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,8 +43,8 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.activity_main)
     View mRootLayout;
 
-    @BindViews({R.id.product_1, R.id.product_2, R.id.product_3})
-    List<ProductCardView> mProductCardViews;
+    @BindView(R.id.line1)
+    LinearLayout mList;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -105,23 +109,31 @@ public class MainActivity extends AppCompatActivity
 
     @OnClick(R.id.add_new_product)
     public void onAddProductClicked(View view) {
-        Snackbar mSnackbar = Snackbar.make(mRootLayout, "Brak internetu", Snackbar.LENGTH_LONG)
-                .setAction("Odśwież", new View.OnClickListener() {
-                    @Override
-                    public void onClick(final View v) {
-                        Intent intent = new Intent(MainActivity.this, AddProductActivity.class);
-                        startActivity(intent);
-                    }
-                })
-                .setActionTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
 
-        final View sbView = mSnackbar.getView();
-        final TextView textView = (TextView)
-                sbView.findViewById(android.support.design.R.id.snackbar_text);
-        textView.setTextColor(getColor(R.color.colorAccent));
-
-        mSnackbar.show();
+        Intent intent = new Intent(MainActivity.this, AddProductActivity.class);
+        startActivity(intent);
     }
+
+
+//    @OnClick(R.id.add_new_product)
+//    public void onAddProductClicked(View view) {
+//        Snackbar mSnackbar = Snackbar.make(mRootLayout, "Brak internetu", Snackbar.LENGTH_LONG)
+//                .setAction("Odśwież", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(final View v) {
+//                        Intent intent = new Intent(MainActivity.this, AddProductActivity.class);
+//                        startActivity(intent);
+//                    }
+//                })
+//                .setActionTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+//
+//        final View sbView = mSnackbar.getView();
+//        final TextView textView = (TextView)
+//                sbView.findViewById(android.support.design.R.id.snackbar_text);
+//        textView.setTextColor(getColor(R.color.colorAccent));
+//
+//        mSnackbar.show();
+//    }
 
     private void setupToolbar() {
         setSupportActionBar(mToolbar);
@@ -133,9 +145,25 @@ public class MainActivity extends AppCompatActivity
         List<Product> products = mProductRepository.getProducts();
 
         for (int i = 0; i < products.size(); i++) {
+
+            LinearLayout.LayoutParams layoutParams =
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                            (int) convertDpToPixel(80, this));
+
             Product product = products.get(i);
-            mProductCardViews.get(i).bindTo(product, this);
+            ProductCardView productCardView = new ProductCardView(this);
+            productCardView.setLayoutParams(layoutParams);
+            productCardView.bindTo(product, this);
+            mList.addView(productCardView);
+
         }
+    }
+
+    public static float convertDpToPixel (float dpValue, Context context){
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px =dpValue * ((float)metrics.densityDpi/DisplayMetrics.DENSITY_DEFAULT);
+        return px;
     }
 
     private void setupActionBarDrawerToggle() {

@@ -35,23 +35,23 @@
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <com.offcasoftware.shop2.view.widget.ProductCardView
-                android:id="@+id/product_1"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:stateListAnimator="@animator/card_view_translation_z" />
+            <!--<com.offcasoftware.shop2.view.widget.ProductCardView-->
+                <!--android:id="@+id/product_1"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="80dp"-->
+                <!--android:stateListAnimator="@animator/card_view_translation_z" />-->
 
-            <com.offcasoftware.shop2.view.widget.ProductCardView
-                android:id="@+id/product_2"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:stateListAnimator="@animator/card_view_translation_z" />
+            <!--<com.offcasoftware.shop2.view.widget.ProductCardView-->
+                <!--android:id="@+id/product_2"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="80dp"-->
+                <!--android:stateListAnimator="@animator/card_view_translation_z" />-->
 
-            <com.offcasoftware.shop2.view.widget.ProductCardView
-                android:id="@+id/product_3"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:stateListAnimator="@animator/card_view_translation_z" />
+            <!--<com.offcasoftware.shop2.view.widget.ProductCardView-->
+                <!--android:id="@+id/product_3"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="80dp"-->
+                <!--android:stateListAnimator="@animator/card_view_translation_z" />-->
 
         </LinearLayout>
 

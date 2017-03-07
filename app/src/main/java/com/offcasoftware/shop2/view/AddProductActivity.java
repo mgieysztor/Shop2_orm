@@ -1,15 +1,19 @@
 package com.offcasoftware.shop2.view;
 
+import com.offcasoftware.shop2.AndroidApplication;
 import com.offcasoftware.shop2.R;
+import com.offcasoftware.shop2.database.Database;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
 
 import java.util.Calendar;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -19,12 +23,33 @@ import butterknife.OnClick;
 
 public class AddProductActivity extends AppCompatActivity {
 
+    @BindView(R.id.product_name)
+    EditText mProductName;
+
+    @BindView(R.id.product_price)
+    EditText mProductPrice;
+
+    private Database mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
         ButterKnife.bind(this);
+
+        mDatabase = AndroidApplication.getDatabase();
+
+    }
+
+    @OnClick(R.id.button_add_product)
+    public void onAddProductClicked (View view){
+        String name = mProductName.getText().toString().trim();
+        String price = mProductPrice.getText().toString().trim();
+        int priceInt = Integer.valueOf(price);
+
+        mDatabase.saveProduct(name,priceInt);
+
+        onBackPressed();
 
     }
 
@@ -43,7 +68,7 @@ public class AddProductActivity extends AppCompatActivity {
             new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year,
-                        int month, int dayOfMonth) {
+                                      int month, int dayOfMonth) {
                 }
             };
 }

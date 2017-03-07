@@ -6,6 +6,7 @@ import com.offcasoftware.shop2.view.ProductDetailsActivity;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -52,11 +53,15 @@ public class ProductCardView extends CardView {
 
     public void bindTo(final Product product,
             final ProductCardViewInterface productCardViewInterface) {
-        int drawableResourceId = this.getResources().getIdentifier(product.getImageResId(),
-                "drawable", getContext().getPackageName());
+//        int drawableResourceId = this.getResources().getIdentifier(product.getImageResId(),
+//                "drawable", getContext().getPackageName());
         mProductName.setText(product.getName());
         mProductPrice.setText(String.valueOf(product.getPrice()));
-        mProductImage.setImageResource(drawableResourceId);
+        if (!TextUtils.isEmpty(product.getImageResId())){
+            int drawableResourceId = this.getResources()
+                    .getIdentifier(product.getImageResId(), "drawable", getContext().getPackageName());
+            mProductImage.setImageResource(drawableResourceId);
+        }
 
         setOnClickListener(new OnClickListener() {
             @Override
